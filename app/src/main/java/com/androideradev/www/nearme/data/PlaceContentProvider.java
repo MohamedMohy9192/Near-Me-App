@@ -61,7 +61,7 @@ public class PlaceContentProvider extends ContentProvider {
                 break;
             case PLACE_WITH_ID:
                 selection = PlaceEntry.COLUMN_PLACE_ID + "=?";
-                String placeID = uri.getPathSegments().get(0);
+                String placeID = uri.getPathSegments().get(1);
                 selectionArgs = new String[]{placeID};
 
                 retCursor = db.query(

@@ -28,7 +28,7 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
 
     private List<Place> mPlaces;
     private Context mContext;
-    private int mIsFavorite;
+
 
     private OnPlaceTypeContentItemClickListener mTypeContentItemClickListener;
 
@@ -39,7 +39,7 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
     public PlaceTypeContentAdapter(Context context, OnPlaceTypeContentItemClickListener itemClickListener) {
         this.mContext = context;
         this.mTypeContentItemClickListener = itemClickListener;
-        mIsFavorite = 0;
+
     }
 
     @NonNull
@@ -60,11 +60,12 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
         holder.placeTypeTextView.setText(place.getPlaceType());
 
         final ImageView favoriteImageVie = holder.addToFavoriteImageView;
-        checkFavoriteState(place.getPlaceId());
-        setIsFavoriteIcon(favoriteImageVie);
+        int isFavorite = checkFavoriteState(place.getPlaceId());
+        setIsFavoriteIcon(favoriteImageVie, isFavorite);
         favoriteImageVie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String placeID = place.getPlaceId();
                 String placeName = place.getName();
                 String placePhone = place.getPhone();
@@ -77,7 +78,7 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
                 String placeType = place.getPlaceType();
 
                 ContentResolver contentResolver = mContext.getContentResolver();
-                if (mIsFavorite == PlaceEntry.PLACE_NOT_FAVORITE) {
+                if (checkFavoriteState(placeID) == PlaceEntry.PLACE_NOT_FAVORITE) {
                     ContentValues values = new ContentValues();
                     values.put(PlaceEntry.COLUMN_PLACE_IS_FAVORITE, PlaceEntry.PLACE_IS_FAVORITE);
                     values.put(PlaceEntry.COLUMN_PLACE_ID, placeID);
@@ -91,8 +92,8 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
                     if (placeUri != null) {
                         Toast.makeText(mContext, R.string.place_added_to_favorites, Toast.LENGTH_LONG).show();
                     }
-                    checkFavoriteState(placeID);
-                    setIsFavoriteIcon(favoriteImageVie);
+                    int isFavorite = checkFavoriteState(placeID);
+                    setIsFavoriteIcon(favoriteImageVie, isFavorite);
 
                 } else {
                     Uri placeUri = PlaceEntry.CONTENT_URI.buildUpon().appendPath(placeID).build();
@@ -100,13 +101,11 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
                     if (deletedNum > 0) {
                         Toast.makeText(mContext, R.string.place_deleted_from_favorite, Toast.LENGTH_LONG).show();
                     }
-                    checkFavoriteState(placeID);
-                    setIsFavoriteIcon(favoriteImageVie);
+                    int isFavorite = checkFavoriteState(placeID);
+                    setIsFavoriteIcon(favoriteImageVie, isFavorite);
                 }
             }
         });
-
-
     }
 
     @Override
@@ -122,7 +121,8 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
         }
     }
 
-    private void checkFavoriteState(String placeID) {
+    private int checkFavoriteState(String placeID) {
+        int isFavorite = 0;
         String[] projection = new String[]{PlaceEntry.COLUMN_PLACE_IS_FAVORITE};
         Uri placeUri = PlaceEntry.CONTENT_URI.buildUpon().appendPath(placeID).build();
 
@@ -131,16 +131,17 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
 
         if (cursor != null) {
             if (cursor.moveToPosition(0)) {
-                mIsFavorite = cursor.getInt(cursor.getColumnIndex(PlaceEntry.COLUMN_PLACE_IS_FAVORITE));
+                isFavorite = cursor.getInt(cursor.getColumnIndex(PlaceEntry.COLUMN_PLACE_IS_FAVORITE));
             }
         }
         if (cursor != null) {
             cursor.close();
         }
+        return isFavorite;
     }
 
-    private void setIsFavoriteIcon(ImageView isFavoriteImageView) {
-        if (mIsFavorite == PlaceEntry.PLACE_IS_FAVORITE) {
+    private void setIsFavoriteIcon(ImageView isFavoriteImageView, int isFavorite) {
+        if (isFavorite == PlaceEntry.PLACE_IS_FAVORITE) {
             isFavoriteImageView.setImageResource(R.drawable.ic_place_is_favorite);
         } else {
             isFavoriteImageView.setImageResource(R.drawable.ic_place_not_favorite);
