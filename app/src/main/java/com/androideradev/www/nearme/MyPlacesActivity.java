@@ -123,5 +123,9 @@ public class MyPlacesActivity extends AppCompatActivity implements
         startActivity(openPlaceDetailsActivity);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+    }
 }

@@ -1,5 +1,8 @@
 package com.androideradev.www.nearme.adapter;
 
+import android.content.Context;
+import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,7 +19,10 @@ import com.androideradev.www.nearme.model.PlaceReview;
 import com.androideradev.www.nearme.utilities.NetworkUtilities;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,9 +30,11 @@ import butterknife.ButterKnife;
 public class PlaceReviewsAdapter extends RecyclerView.Adapter<PlaceReviewsAdapter.PlaceReviewsViewHolder> {
 
     private List<PlaceReview> mPlaceReviews;
+    private Context mContext;
 
-    public PlaceReviewsAdapter(List<PlaceReview> placeReviews) {
+    public PlaceReviewsAdapter(List<PlaceReview> placeReviews, Context context) {
         this.mPlaceReviews = placeReviews;
+        this.mContext = context;
     }
 
     @NonNull
@@ -55,8 +63,20 @@ public class PlaceReviewsAdapter extends RecyclerView.Adapter<PlaceReviewsAdapte
         }
         holder.authorRatting.setRating(Float.valueOf(authorRatting));
 
-        holder.authorTimeTextView.setText(placeReview.getTipTime());
-        holder.authorTextTextView.setText(placeReview.getTipText());
+        String timeStamp = placeReview.getTipTime();
+
+        if (!TextUtils.isEmpty(timeStamp)) {
+            Date date = new Date(Long.valueOf(timeStamp) * 1000L);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+            timeStamp = simpleDateFormat.format(date);
+
+        } else {
+            timeStamp = mContext.getString(R.string.no_info_available);
+        }
+        holder.authorTimeTextView.setText(timeStamp);
+        String text = placeReview.getTipText();
+        if (TextUtils.isEmpty(text)) text = mContext.getString(R.string.no_info_available);
+        holder.authorTextTextView.setText(text);
 
 
     }

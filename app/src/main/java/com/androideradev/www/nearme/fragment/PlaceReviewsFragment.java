@@ -65,13 +65,12 @@ public class PlaceReviewsFragment extends Fragment {
 
         mRecyclerView.setHasFixedSize(true);
 
-        mPlaceReviewsAdapter = new PlaceReviewsAdapter(mPlaceReviews);
+        mPlaceReviewsAdapter = new PlaceReviewsAdapter(mPlaceReviews, getContext());
         mRecyclerView.setAdapter(mPlaceReviewsAdapter);
 
 
         return rootView;
     }
-
 
 
 }

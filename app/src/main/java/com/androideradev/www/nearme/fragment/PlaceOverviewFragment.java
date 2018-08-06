@@ -65,17 +65,22 @@ public class PlaceOverviewFragment extends Fragment {
         if (TextUtils.isEmpty(placeRatting)) {
             placeRatting = "0.0";
         }
+
+        String noInfo = getString(R.string.no_info_available);
         mPlaceRattingTextView.setText(placeRatting);
         mPlaceRattingRattingBar.setRating(Float.valueOf(placeRatting));
 
-        mPlaceAddressTextView.setText(mPlace.getAddress());
-        boolean isOpenNow = mPlace.isOpen();
-        String placeStatus = getString(R.string.place_closed_status);
-        if (isOpenNow) {
-            placeStatus = getString(R.string.place_open_status);
-        }
-        mPlaceStatusTextView.setText(mPlace.getPlaceStatus());
-        mPlacePhoneTextView.setText(mPlace.getPhone());
+        String placeAddress = mPlace.getAddress();
+        if (TextUtils.isEmpty(placeAddress)) placeAddress = noInfo;
+        mPlaceAddressTextView.setText(placeAddress);
+
+        String placeStatus = mPlace.getPlaceStatus();
+        if (TextUtils.isEmpty(placeStatus)) placeStatus = noInfo;
+        mPlaceStatusTextView.setText(placeStatus);
+
+        String placePhone = mPlace.getPhone();
+        if (TextUtils.isEmpty(placePhone)) placePhone = noInfo;
+        mPlacePhoneTextView.setText(placePhone);
         return rootView;
     }
 

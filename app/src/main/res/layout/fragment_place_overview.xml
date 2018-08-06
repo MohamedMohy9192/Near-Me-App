@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/tv_details_place_ratting"
+        style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -36,24 +37,27 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/map_icon_to_indicate_to_the_place_address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_details_place_ratting"
         app:srcCompat="@drawable/ic_open_map" />
 
     <TextView
         android:id="@+id/tv_details_place_address"
-        android:layout_width="wrap_content"
+
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/rb_details_place_ratting" />
+        app:layout_constraintTop_toBottomOf="@+id/rb_details_place_ratting"
+        tools:text="TextView" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -62,24 +66,26 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/watch_icon_to_indicate_to_place_status"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:srcCompat="@drawable/ic_open_or_not" />
 
     <TextView
         android:id="@+id/tv_details_place_status"
-        android:layout_width="wrap_content"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_details_place_address" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_details_place_address"
+        tools:text="TextView" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -88,24 +94,26 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/phone_icon_to_indicate_to_phone_number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/ic_place_phone_number" />
 
     <TextView
         android:id="@+id/tv_details_place_phone"
-        android:layout_width="wrap_content"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/tv_details_place_status" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_details_place_status"
+        tools:text="TextView" />
 
 
 </android.support.constraint.ConstraintLayout>

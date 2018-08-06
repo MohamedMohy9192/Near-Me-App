@@ -25,24 +25,6 @@ public class NetworkUtilities {
 
     private static final String LOG_TAG = NetworkUtilities.class.getSimpleName();
 
-    private static final String RESULTS_ARRAY_NAME = "results";
-
-    private static final String GEOMETRY_OBJECT_NAME = "geometry";
-    private static final String LOCATION_OBJECT_NAME = "location";
-    private static final String LAT_VALUE_NAME = "lat";
-    private static final String LNG_VALUE_NAME = "lng";
-
-    private static final String PLACE_NAME_VALUE_NAME = "name";
-
-    private static final String OPENING_HOURS_OBJECT_NAME = "opening_hours";
-    private static final String OPEN_NOW_VALUE_NAME = "open_now";
-
-    private static final String PHOTOS_ARRAY_NAME = "photos";
-    private static final String PHOTO_REFERENCE_VALUE_NAME = "photo_reference";
-
-    private static final String PLACE_ID_VALUE_NAME = "place_id";
-    private static final String RATTING_VALUE_NAME = "rating";
-
     private static final String PLACE_TYPE_SEARCH_BASE_URL = "https://api.foursquare.com/v2/venues/search";
     private static final String CLIENT_ID_KEY_NAME = "client_id";
     private static final String CLIENT_ID_KEY_VALUE = BuildConfig.CLIENT_ID;
