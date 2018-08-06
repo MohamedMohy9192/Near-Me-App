@@ -41,6 +41,7 @@ public class NetworkUtilities {
     private static final String PHOTO_PLACE_WIDTH_AND_HEIGHT_VALUE = "500x500";
 
     private static final String PLACE_DETAILS_BASE_URL = "https://api.foursquare.com/v2/venues/";
+    private static final String PLACE_LIKES_BASE_URL = "https://api.foursquare.com/v2/venues/49eeaf08f964a52078681fe3/likes";
 
     private static final String REQUEST_TIME_PARAMETER_NAME = "v";
 
@@ -88,8 +89,21 @@ public class NetworkUtilities {
 
     }
 
+    public static String buildLikesUrl(String placeID) {
+        Uri baseUri = Uri.parse(PLACE_DETAILS_BASE_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon()
+                .appendPath(placeID)
+                .appendPath("likes")
+                .appendQueryParameter(CLIENT_ID_KEY_NAME, CLIENT_ID_KEY_VALUE)
+                .appendQueryParameter(CLIENT_SECRET_KEY_NAME, CLIENT_SECRET_KEY_VALUE)
+                .appendQueryParameter(REQUEST_TIME_PARAMETER_NAME, "20180805");
 
-    private static URL buildUrl(String stringUrl) {
+        Uri completedUri = uriBuilder.build();
+        return completedUri.toString();
+    }
+
+
+    public static URL buildUrl(String stringUrl) {
         URL requestUrl;
         try {
             requestUrl = new URL(stringUrl);

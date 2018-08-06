@@ -90,7 +90,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements LoaderMan
     public void onLoadFinished(@NonNull Loader<Place> loader, Place data) {
         mPhotosLoadingIndicator.setVisibility(View.INVISIBLE);
         if (data != null) {
-            PlaceOverviewFragment placeOverviewFragment = PlaceOverviewFragment.newInstance(data);
+            PlaceOverviewFragment placeOverviewFragment = PlaceOverviewFragment.newInstance(data, mPlaceId);
             mViewPagerDetailsAdapter.addFragment(placeOverviewFragment, getString(R.string.overview_page_name));
             PlaceReviewsFragment placeReviewsFragment = PlaceReviewsFragment.newInstance(data.getPlaceReviews());
             mViewPagerDetailsAdapter.addFragment(placeReviewsFragment, getString(R.string.reviews_page_name));

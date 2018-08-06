@@ -38,6 +38,7 @@ public class JsonUtilities {
     private static final String RATTING_VALUE_NAME = "rating";
     private static final String PHOTOS_OBJECT_NAME = "photos";
     private static final String TIPS_OBJECT_NAME = "tips";
+    private static final String LIKES_JSON_OBJECT_NAME = "likes";
 
 
     public static List<Place> extractPlacesFromJson(String jsonResponse) {
@@ -174,7 +175,7 @@ public class JsonUtilities {
                         final String groupArrayName = "groups";
                         if (photoJsonObject.has(groupArrayName)) {
                             JSONArray groupJsonArray = photoJsonObject.getJSONArray(groupArrayName);
-                            for (int i = 0; i < groupJsonArray.length(); i++){
+                            for (int i = 0; i < groupJsonArray.length(); i++) {
                                 JSONObject placePhotoObject = groupJsonArray.optJSONObject(i);
                                 final String itemsArrayName = "items";
                                 if (placePhotoObject.has(itemsArrayName)) {
@@ -204,7 +205,7 @@ public class JsonUtilities {
                         if (tipsJsonObject.has(groupArrayName)) {
                             JSONArray groupJsonArray = tipsJsonObject.getJSONArray(groupArrayName);
 
-                            for (int i = 0; i < groupJsonArray.length(); i++){
+                            for (int i = 0; i < groupJsonArray.length(); i++) {
 
                                 JSONObject groupJsonObject = groupJsonArray.optJSONObject(i);
                                 final String itemsArrayName = "items";
@@ -249,7 +250,30 @@ public class JsonUtilities {
             e.printStackTrace();
             return null;
         }
+    }
 
+    public static String extractLikeCountFromJson(String jsonResponse) {
+        if (TextUtils.isEmpty(jsonResponse)) {
+            return null;
+        }
 
+        String likesCount = "0 Likes";
+        try {
+            JSONObject mainJsonObject = new JSONObject(jsonResponse);
+            if (mainJsonObject.has(RESPONSE_OBJECT_NAME)) {
+                JSONObject responseJsonObject = mainJsonObject.optJSONObject(RESPONSE_OBJECT_NAME);
+                if (responseJsonObject.has(LIKES_JSON_OBJECT_NAME)) {
+                    JSONObject likesJsonObject = responseJsonObject.optJSONObject(LIKES_JSON_OBJECT_NAME);
+                    if (likesJsonObject.has("summary")) {
+                        likesCount = likesJsonObject.optString("summary");
+                    }
+                }
+            }
+            return likesCount;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return likesCount;
+        }
     }
 }
