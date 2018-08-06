@@ -37,25 +37,11 @@ public class NetworkUtilities {
     private static final String PLACES_LIMIT_PARAMETER_NAME = "limit";
     private static final String PLACES_LIMIT_PARAMETER_VALUE = "15";
 
-    private static final String PHOTO_BASE_URL = "https://maps.googleapis.com/maps/api/place/photo";
-    private static final String PHOTO_MAX_WIDTH_PARAMETER_NAME = "maxwidth";
     private static final String PHOTO_USER_WIDTH_AND_HEIGHT_VALUE = "100x100";
     private static final String PHOTO_PLACE_WIDTH_AND_HEIGHT_VALUE = "500x500";
-    private static final String PHOTO_REFERENCE_PARAMETER_NAME = "photoreference";
 
     private static final String PLACE_DETAILS_BASE_URL = "https://api.foursquare.com/v2/venues/";
-    private static final String PLACE_ID_PARAMETER_NAME = "placeid";
-    private static final String RESULTS_OBJECT_NAME = "result";
 
-    private static final String PLACE_ADDRESS_VALUE_NAME = "formatted_address";
-    private static final String PLACE_NUMBER_VALUE_NAME = "formatted_phone_number";
-    private static final String PLACE_REVIEWS_ARRAY_NAME = "reviews";
-
-    private static final String AUTHOR_NAME_VALUE_NAME = "author_name";
-    private static final String AUTHOR_PHOTO_VALUE_NAME = "profile_photo_url";
-    private static final String AUTHOR_TIME_DESC_VALUE_NAME = "relative_time_description";
-    private static final String AUTHOR_TEXT_VALUE_NAME = "text";
-    private static final String AUTHOR_TIME_VALUE_NAME = "time";
     private static final String REQUEST_TIME_PARAMETER_NAME = "v";
 
 
