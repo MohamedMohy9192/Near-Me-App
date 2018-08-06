@@ -23,7 +23,7 @@ public class Place implements Parcelable {
     private boolean isOpen;
 
 
-    public Place(String placeId, String name, String phone, String address, String crossStreet, double lat, double lng, String placeType) {
+    public Place(String placeId, String name, String phone, String address, double lat, double lng, String placeType) {
         this.placeId = placeId;
         this.name = name;
         this.phone = phone;

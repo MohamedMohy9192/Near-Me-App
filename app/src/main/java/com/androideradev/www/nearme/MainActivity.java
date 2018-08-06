@@ -340,7 +340,9 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_my_places) {
+            Intent intent = new Intent(this, MyPlacesActivity.class);
+            startActivity(intent);
             return true;
         }
 

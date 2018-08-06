@@ -2,7 +2,6 @@ package com.androideradev.www.nearme;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,17 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.androideradev.www.nearme.adapter.PlaceTypeContentAdapter;
-import com.androideradev.www.nearme.data.PlaceContract;
+import com.androideradev.www.nearme.data.PlaceContract.PlaceEntry;
 import com.androideradev.www.nearme.model.Place;
-import com.androideradev.www.nearme.utilities.NetworkUtilities;
 
-import java.lang.ref.WeakReference;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +33,15 @@ public class MyPlacesActivity extends AppCompatActivity implements
         PlaceTypeContentAdapter.OnPlaceTypeContentItemClickListener {
 
     private static final String LOG_TAG = MyPlacesActivity.class.getSimpleName();
+    private static final int CURSOR_LOADER_ID = 200;
 
     private PlaceTypeContentAdapter mPlaceTypeContentAdapter;
 
     @BindView(R.id.rv_my_places_Activity)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.pb_my_places_indicator)
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +68,16 @@ public class MyPlacesActivity extends AppCompatActivity implements
 
         mPlaceTypeContentAdapter = new PlaceTypeContentAdapter(this, this);
         mRecyclerView.setAdapter(mPlaceTypeContentAdapter);
+
+        getSupportLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
     }
 
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        mProgressBar.setVisibility(View.INVISIBLE);
         return new CursorLoader(this,
-                PlaceContract.PlaceEntry.CONTENT_URI,
+                PlaceEntry.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -83,18 +86,27 @@ public class MyPlacesActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        if (data == null || data.getCount() == 0) {
-            Toast.makeText(this, "No Saved Places!", Toast.LENGTH_LONG).show();
-            return;
-        }
-        List<String> placesId = new ArrayList<>();
+        mProgressBar.setVisibility(View.INVISIBLE);
+//        if (data == null || data.getCount() == 0) {
+//            Toast.makeText(this, R.string.no_saved_places, Toast.LENGTH_LONG).show();
+//            return;
+//        }
+        List<Place> places = new ArrayList<>();
 
         while (data.moveToNext()) {
-            String placeId = data.getString(data.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_PLACE_ID));
-            placesId.add(placeId);
-        }
+            String placeID = data.getString(data.getColumnIndex(PlaceEntry.COLUMN_PLACE_ID));
+            String placeName = data.getString(data.getColumnIndex(PlaceEntry.COLUMN_PLACE_NAME));
+            String placeType = data.getString(data.getColumnIndex(PlaceEntry.COLUMN_PLACE_TYPE));
+            String placePhone = data.getString(data.getColumnIndex(PlaceEntry.COLUMN_PLACE_PHONE));
+            String placeAddress = data.getString(data.getColumnIndex(PlaceEntry.COLUMN_PLACE_ADDRESS));
+            String placeLat = data.getString(data.getColumnIndex(PlaceEntry.COLUMN_PLACE_LAT));
+            String placeLng = data.getString(data.getColumnIndex(PlaceEntry.COLUMN_PLACE_LNG));
 
-        new LoadPlacesBasedOnIds(this).execute(placesId);
+            Place place = new Place(placeID, placeName, placePhone, placeAddress, Double.valueOf(placeLat), Double.valueOf(placeLng), placeType);
+            places.add(place);
+        }
+        mPlaceTypeContentAdapter.setPlaces(places);
+
 
     }
 
@@ -111,45 +123,5 @@ public class MyPlacesActivity extends AppCompatActivity implements
         startActivity(openPlaceDetailsActivity);
     }
 
-    private static class LoadPlacesBasedOnIds extends AsyncTask<List<String>, Void, List<Place>> {
-        private WeakReference<MyPlacesActivity> mMyPlacesActivityWeakReference;
 
-        LoadPlacesBasedOnIds(MyPlacesActivity placesActivity) {
-            this.mMyPlacesActivityWeakReference = new WeakReference<>(placesActivity);
-        }
-
-        @SafeVarargs
-        @Override
-        protected final List<Place> doInBackground(List<String>... lists) {
-            List<String> placesId = lists[0];
-            List<Place> places = new ArrayList<>();
-            for (int i = 0; i < placesId.size(); i++) {
-                String placeId = placesId.get(i);
-                if (mMyPlacesActivityWeakReference.get() != null) {
-                    URL requestUrl = NetworkUtilities.buildPlaceDetailsUrl(placeId);
-                    Log.i(LOG_TAG, "doInBackground: " + requestUrl);
-                    if (requestUrl != null) {
-                        String jsonResponse = NetworkUtilities.getJsonResponseFromHttpUrl(requestUrl);
-                        if (jsonResponse != null) {
-//                            Place place = NetworkUtilities.extractPlaceBasedOnId(jsonResponse);
-//                            places.add(place);
-                        }
-                    }
-                }
-            }
-            return places;
-        }
-
-        @Override
-        protected void onPostExecute(List<Place> places) {
-            if (places != null) {
-                if (mMyPlacesActivityWeakReference.get() != null) {
-                    mMyPlacesActivityWeakReference.get().mPlaceTypeContentAdapter.setPlaces(places);
-                }
-
-            } else {
-
-            }
-        }
-    }
 }

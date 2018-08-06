@@ -103,7 +103,7 @@ public class JsonUtilities {
                                 placeType = categoryJsonObject.optString(CATEGORY_TYPE_NAME_VALUE_NAME);
                             }
                         }
-                        Place place = new Place(placeId, name, phone, address, crossStreet, lat, lng, placeType);
+                        Place place = new Place(placeId, name, phone, address, lat, lng, placeType);
                         places.add(place);
                     }
                 }

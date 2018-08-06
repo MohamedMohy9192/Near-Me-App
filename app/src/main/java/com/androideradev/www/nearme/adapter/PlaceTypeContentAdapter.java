@@ -3,6 +3,7 @@ package com.androideradev.www.nearme.adapter;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androideradev.www.nearme.MapsActivity;
 import com.androideradev.www.nearme.R;
 import com.androideradev.www.nearme.data.PlaceContract.PlaceEntry;
 import com.androideradev.www.nearme.model.Place;
@@ -29,7 +31,6 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
     private List<Place> mPlaces;
     private Context mContext;
 
-
     private OnPlaceTypeContentItemClickListener mTypeContentItemClickListener;
 
     public interface OnPlaceTypeContentItemClickListener {
@@ -39,7 +40,6 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
     public PlaceTypeContentAdapter(Context context, OnPlaceTypeContentItemClickListener itemClickListener) {
         this.mContext = context;
         this.mTypeContentItemClickListener = itemClickListener;
-
     }
 
     @NonNull
@@ -47,7 +47,6 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
     public PlaceItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(mContext).
                 inflate(R.layout.place_list_item, parent, false);
-
         return new PlaceItemViewHolder(itemView);
     }
 
@@ -55,30 +54,39 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
     public void onBindViewHolder(@NonNull PlaceItemViewHolder holder, int position) {
         final Place place = mPlaces.get(position);
 
-
         holder.placeNameTextView.setText(place.getName());
         holder.placeTypeTextView.setText(place.getPlaceType());
 
         final ImageView favoriteImageVie = holder.addToFavoriteImageView;
+
         int isFavorite = checkFavoriteState(place.getPlaceId());
         setIsFavoriteIcon(favoriteImageVie, isFavorite);
         favoriteImageVie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String noInfo = mContext.getString(R.string.no_info_available);
 
                 String placeID = place.getPlaceId();
+                int isFavorite = checkFavoriteState(placeID);
+
                 String placeName = place.getName();
+                if (TextUtils.isEmpty(placeName)) placeName = noInfo;
+
                 String placePhone = place.getPhone();
                 if (TextUtils.isEmpty(placePhone)) {
-                    placePhone = "No Info Available!";
+                    placePhone = noInfo;
                 }
                 String placeAddress = place.getAddress();
+                if (TextUtils.isEmpty(placeAddress)) placeAddress = noInfo;
+
                 double placeLat = place.getLat();
                 double placeLng = place.getLng();
+
                 String placeType = place.getPlaceType();
+                if (TextUtils.isEmpty(placeType)) placeType = noInfo;
 
                 ContentResolver contentResolver = mContext.getContentResolver();
-                if (checkFavoriteState(placeID) == PlaceEntry.PLACE_NOT_FAVORITE) {
+                if (isFavorite == PlaceEntry.PLACE_NOT_FAVORITE) {
                     ContentValues values = new ContentValues();
                     values.put(PlaceEntry.COLUMN_PLACE_IS_FAVORITE, PlaceEntry.PLACE_IS_FAVORITE);
                     values.put(PlaceEntry.COLUMN_PLACE_ID, placeID);
@@ -92,7 +100,7 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
                     if (placeUri != null) {
                         Toast.makeText(mContext, R.string.place_added_to_favorites, Toast.LENGTH_LONG).show();
                     }
-                    int isFavorite = checkFavoriteState(placeID);
+                    isFavorite = PlaceEntry.PLACE_IS_FAVORITE;
                     setIsFavoriteIcon(favoriteImageVie, isFavorite);
 
                 } else {
@@ -101,9 +109,22 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
                     if (deletedNum > 0) {
                         Toast.makeText(mContext, R.string.place_deleted_from_favorite, Toast.LENGTH_LONG).show();
                     }
-                    int isFavorite = checkFavoriteState(placeID);
+                    isFavorite = PlaceEntry.PLACE_NOT_FAVORITE;
                     setIsFavoriteIcon(favoriteImageVie, isFavorite);
                 }
+            }
+        });
+
+        ImageView openMapImageView = holder.openMapImageView;
+        openMapImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openMapsActivity = new Intent(mContext, MapsActivity.class);
+                openMapsActivity.putExtra(MapsActivity.MAPS_LAT_INTENT_EXTRA, place.getLat());
+                openMapsActivity.putExtra(MapsActivity.MAPS_LNG_INTENT_EXTRA, place.getLng());
+                openMapsActivity.putExtra(MapsActivity.MAPS_PLACE_NAME_INTENT_EXTRA, place.getName());
+                openMapsActivity.putExtra(MapsActivity.MAPS_PLACE_TYPE_INTENT_EXTRA, place.getPlaceType());
+                mContext.startActivity(openMapsActivity);
             }
         });
     }

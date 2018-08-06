@@ -53,7 +53,7 @@ public class NetworkUtilities {
     private static final String RADIUS_PARAMETER_VALUE = "1500";
     private static final String PLACE_TYPE_PARAMETER_NAME = "categoryId";
     private static final String PLACES_LIMIT_PARAMETER_NAME = "limit";
-    private static final String PLACES_LIMIT_PARAMETER_VALUE = "1";
+    private static final String PLACES_LIMIT_PARAMETER_VALUE = "15";
 
     private static final String PHOTO_BASE_URL = "https://maps.googleapis.com/maps/api/place/photo";
     private static final String PHOTO_MAX_WIDTH_PARAMETER_NAME = "maxwidth";
