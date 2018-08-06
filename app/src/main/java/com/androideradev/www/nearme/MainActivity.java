@@ -154,31 +154,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void requestLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-//            // Permission is not granted
-////            // Should we show an explanation?
-////            if (PermissionUtilities.shouldShowPermissionExplanationDialog(this)){
-////                // Show an explanation to the user *asynchronously* -- don't block
-////                // this thread waiting for the user's response! After the user
-////                // sees the explanation, try again to request the permission.
-////                PermissionUtilities.showPermissionExplanationDialog(this);
-////            } else {
-            // No explanation needed; request the permission
             PermissionUtilities.requestFineLocationPermission(this);
 //            }
         } else {
             // Permission has already been granted
             setupLocationRequestSettings();
-
         }
     }
 
@@ -190,8 +174,7 @@ public class MainActivity extends AppCompatActivity implements
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+                    // permission was granted.
                     setupLocationRequestSettings();
                 } else {
                     // permission denied, check if user has selected don't ask again
@@ -203,11 +186,8 @@ public class MainActivity extends AppCompatActivity implements
                     }
 
                 }
-
             }
 
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 
@@ -227,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements
 
             mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest,
                     mLocationCallback,
-                    null /* Looper */);
+                    null);
         } catch (SecurityException e) {
             Log.e(LOG_TAG, "startLocationUpdates: " + e.getMessage());
         }
@@ -272,8 +252,7 @@ public class MainActivity extends AppCompatActivity implements
                     // Location settings are not satisfied, but this can be fixed
                     // by showing the user a dialog.
                     try {
-                        // Show the dialog by calling startResolutionForResult(),
-                        // and check the result in onActivityResult().
+
                         ResolvableApiException resolvable = (ResolvableApiException) e;
                         resolvable.startResolutionForResult(MainActivity.this,
                                 REQUEST_CHECK_SETTINGS);
@@ -298,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case MainActivity.RESULT_CANCELED:
                         // The user was asked to change settings, but chose not to
+                        // get last location if exist or default if not.
                         getDeviceLastLocation();
                         break;
                     default:
@@ -334,12 +314,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_my_places) {
             Intent intent = new Intent(this, MyPlacesActivity.class);
             startActivity(intent);

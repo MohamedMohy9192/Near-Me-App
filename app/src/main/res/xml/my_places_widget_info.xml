@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.androideradev.www.nearme.WidgetConfigurationActivity"
+    android:initialLayout="@layout/my_places_widget"
+    android:minHeight="80dp"
+    android:minWidth="120dp"
+    android:previewImage="@mipmap/ic_place_icon"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="86400000"
+    android:widgetCategory="home_screen" />

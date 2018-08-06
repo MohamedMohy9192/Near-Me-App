@@ -38,4 +38,6 @@
     <string name="map_icon_to_indicate_to_the_place_address">Map icon to indicate to the place address</string>
     <string name="user_image">User image</string>
     <string name="favorite_icon_let_user_save_the_place_to_database">Favorite icon let user save the place to database</string>
+
+    <string name="add_widget">Add widget</string>
 </resources>

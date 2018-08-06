@@ -63,6 +63,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.androideradev.www.nearme.MainActivity" />
         </activity>
+
+        <receiver android:name=".MyPlacesWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/my_places_widget_info" />
+        </receiver>
+
+        <activity android:name=".WidgetConfigurationActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

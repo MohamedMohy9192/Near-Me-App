@@ -34,7 +34,7 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
     private OnPlaceTypeContentItemClickListener mTypeContentItemClickListener;
 
     public interface OnPlaceTypeContentItemClickListener {
-        void onPlaceTypeItemClicked(String placeId);
+        void onPlaceTypeItemClicked(String placeId, String placeName, String placeType);
     }
 
     public PlaceTypeContentAdapter(Context context, OnPlaceTypeContentItemClickListener itemClickListener) {
@@ -191,7 +191,7 @@ public class PlaceTypeContentAdapter extends RecyclerView.Adapter<PlaceTypeConte
         public void onClick(View v) {
             int itemPosition = getAdapterPosition();
             Place place = mPlaces.get(itemPosition);
-            mTypeContentItemClickListener.onPlaceTypeItemClicked(place.getPlaceId());
+            mTypeContentItemClickListener.onPlaceTypeItemClicked(place.getPlaceId(), place.getName(), place.getPlaceType());
         }
     }
 

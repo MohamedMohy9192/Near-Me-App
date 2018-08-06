@@ -110,7 +110,7 @@ public class PlaceTypeContentActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPlaceTypeItemClicked(String placeId) {
+    public void onPlaceTypeItemClicked(String placeId, String placeName, String placeType) {
         Intent openPlaceDetailsActivity = new Intent(this, PlaceDetailsActivity.class);
         openPlaceDetailsActivity.putExtra(PLACE_ID_INTENT_EXTRA, placeId);
 
