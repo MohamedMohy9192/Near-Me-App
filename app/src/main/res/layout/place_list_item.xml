@@ -31,7 +31,8 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_place_not_favorite" />
+        app:srcCompat="@drawable/ic_place_not_favorite"
+        android:contentDescription="@string/favorite_icon_let_user_save_the_place_to_database" />
 
     <ImageView
         android:id="@+id/iv_open_map"
@@ -42,7 +43,8 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/iv_favorite_place"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_open_map" />
+        app:srcCompat="@drawable/ic_open_map"
+        android:contentDescription="@string/map_icon_to_indicate_to_the_place_address" />
 
     <TextView
         android:id="@+id/tv_place_type"
@@ -54,7 +56,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        tools:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

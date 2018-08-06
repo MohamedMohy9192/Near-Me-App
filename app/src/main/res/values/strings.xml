@@ -15,15 +15,15 @@
 
     <string name="permission_toast_message">The app will use the last known location of the device
         if exist, if not App will use a default location. </string>
-    <string name="title_activity_place_type_content">PlaceTypeContentActivity</string>
-    <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_place_type_content">Near Places</string>
+    <string name="title_activity_details">Place Details</string>
     <string name="default_place_ratting">0.0</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="place_closed_status">Closed</string>
     <string name="place_open_status">Open Now</string>
-    <string name="title_activity_my_places">MyPlaces</string>
+    <string name="title_activity_my_places">My Places</string>
 
     <string name="places_api_key">AIzaSyDB68WGHU5jxzUbwly3m5EP7eqlJjArb-Y</string>
     <string name="overview_page_name">Overview</string>
@@ -37,4 +37,5 @@
     <string name="watch_icon_to_indicate_to_place_status">Watch icon to indicate to place status</string>
     <string name="map_icon_to_indicate_to_the_place_address">Map icon to indicate to the place address</string>
     <string name="user_image">User image</string>
+    <string name="favorite_icon_let_user_save_the_place_to_database">Favorite icon let user save the place to database</string>
 </resources>

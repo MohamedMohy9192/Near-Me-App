@@ -43,6 +43,8 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosView
         String photoUrl = NetworkUtilities.buildPlacePhotoUrl(photo.getPrefix(), photo.getSuffix());
         Picasso.get()
                 .load(photoUrl)
+                .placeholder(R.drawable.place_pic_holder)
+                .error(R.drawable.place_pic_holder)
                 .into(holder.placePhotoImageView);
 
     }

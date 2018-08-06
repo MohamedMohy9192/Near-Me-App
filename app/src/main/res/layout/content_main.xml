@@ -13,5 +13,4 @@
         android:id="@+id/rv_place_type"/>
 
 
-
 </android.support.constraint.ConstraintLayout>

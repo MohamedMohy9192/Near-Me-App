@@ -55,6 +55,8 @@ public class PlaceReviewsAdapter extends RecyclerView.Adapter<PlaceReviewsAdapte
         String photoUrl = NetworkUtilities.buildUserPhotoUrl(photo.getPrefix(), photo.getSuffix());
         Picasso.get()
                 .load(photoUrl)
+                .placeholder(R.drawable.user_pic_place_holder)
+                .error(R.drawable.user_pic_place_holder)
                 .into(holder.authorPhotoImageView);
 
         String authorRatting = placeReview.getTipRatting();
