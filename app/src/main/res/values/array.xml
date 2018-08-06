@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="names_of_places">
+        <item>Food</item>
+        <item>Bars</item>
+        <item>Cafes</item>
+        <item>Parks</item>
+        <item>Gyms</item>
+        <item>Cinemas</item>
+        <item>Museums</item>
+        <item>Libraries</item>
+        <item>Supermarkets</item>
+        <item>ATMs</item>
+        <item>Gas Stations</item>
+        <item>Hospitals</item>
+        <item>Hotels</item>
+    </string-array>
+
+    <string-array name="values_of_places">
+        <item>4d4b7105d754a06374d81259</item>
+        <item>4bf58dd8d48988d116941735</item>
+        <item>4bf58dd8d48988d1e0931735</item>
+        <item>4bf58dd8d48988d182941735</item>
+        <item>4bf58dd8d48988d175941735</item>
+        <item>4bf58dd8d48988d17f941735</item>
+        <item>4bf58dd8d48988d181941735</item>
+        <item>4bf58dd8d48988d12f941735</item>
+        <item>4bf58dd8d48988d1f9941735</item>
+        <item>52f2ab2ebcbc57f1066b8b56</item>
+        <item>4bf58dd8d48988d113951735</item>
+        <item>4bf58dd8d48988d196941735</item>
+        <item>4bf58dd8d48988d1fa931735</item>
+
+    </string-array>
+
+
+</resources>
