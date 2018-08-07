@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        release {
+        config {
             keyAlias 'near-me-app'
             keyPassword 'appnearme'
-            storeFile file('C:/Users/OWNER/AndroidStudioProjects/NearMe/android.jks')
+            storeFile file('../keystore/android.jks')
             storePassword 'mohamed2018'
         }
     }
@@ -25,7 +25,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.config
         }
     }
 }
