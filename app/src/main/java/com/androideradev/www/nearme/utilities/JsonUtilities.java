@@ -2,6 +2,7 @@ package com.androideradev.www.nearme.utilities;
 
 import android.text.TextUtils;
 
+import com.androideradev.www.nearme.MainActivity;
 import com.androideradev.www.nearme.model.Place;
 import com.androideradev.www.nearme.model.Photo;
 import com.androideradev.www.nearme.model.PlaceReview;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtilities {
+
+    private static final String LOG_TAG = JsonUtilities.class.getSimpleName();
 
     private static final String RESPONSE_OBJECT_NAME = "response";
 
@@ -224,9 +227,11 @@ public class JsonUtilities {
                                         tipRatting = likesJsonObject.optString("count");
                                         JSONObject userJsonObject = itemJsonObject.optJSONObject("user");
                                         userName = userJsonObject.optString("firstName");
-                                        JSONObject userPhotoJsonObject = userJsonObject.optJSONObject("photo");
-                                        userPhoto = new Photo(userPhotoJsonObject.optString("prefix"), userPhotoJsonObject.optString("suffix"));
+                                        if (!itemJsonObject.isNull("photo")) {
+                                            JSONObject userPhotoJsonObject = itemJsonObject.optJSONObject("photo");
 
+                                            userPhoto = new Photo(userPhotoJsonObject.optString("prefix"), userPhotoJsonObject.optString("suffix"));
+                                        }
                                         PlaceReview placeReview = new PlaceReview(tipTime, tipText, tipRatting, userName, userPhoto);
                                         placeReviews.add(placeReview);
                                     }

@@ -51,13 +51,16 @@ public class PlaceReviewsAdapter extends RecyclerView.Adapter<PlaceReviewsAdapte
 
         holder.authorNameTextView.setText(placeReview.getUserName());
 
-        Photo photo = placeReview.getUserPhoto();
-        String photoUrl = NetworkUtilities.buildUserPhotoUrl(photo.getPrefix(), photo.getSuffix());
-        Picasso.get()
-                .load(photoUrl)
-                .placeholder(R.drawable.user_pic_place_holder)
-                .error(R.drawable.user_pic_place_holder)
-                .into(holder.authorPhotoImageView);
+        if (placeReview.getUserPhoto() != null){
+            Photo photo = placeReview.getUserPhoto();
+            String photoUrl = NetworkUtilities.buildUserPhotoUrl(photo.getPrefix(), photo.getSuffix());
+            Picasso.get()
+                    .load(photoUrl)
+                    .placeholder(R.drawable.user_pic_place_holder)
+                    .error(R.drawable.user_pic_place_holder)
+                    .into(holder.authorPhotoImageView);
+        }
+
 
         String authorRatting = placeReview.getTipRatting();
         if (TextUtils.isEmpty(authorRatting)) {
