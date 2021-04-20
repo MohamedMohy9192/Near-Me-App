@@ -1,10 +1,10 @@
 # Near-Me-App
 
-App Shows nearly places of the user location using [foursquare Api](https://foursquare.com/).
+App Shows nearby places of the user location using [foursquare Api](https://foursquare.com/).
 
 ## Screenshots
 
-![Home Screen Page](/screenshots/Screenshot_Main.png)
+<img src="screenshots/Screenshot_Main.png" alt="drawing" width="200"/>
 ![Places Categories Screen](/screenshots/Screenshot_PlacesOfType.png)
 ![Place Overview Screen](/screenshots/Screenshot_PlaceOverview.png)
 ![Place Reviews Screen](/screenshots/Screenshot_PlaceReviews.png)
