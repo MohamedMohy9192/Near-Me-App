@@ -3,8 +3,8 @@ package com.androideradev.www.nearme.utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AlertDialog;
 
 import com.androideradev.www.nearme.R;
 

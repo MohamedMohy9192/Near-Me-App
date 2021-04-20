@@ -1,19 +1,16 @@
 package com.androideradev.www.nearme.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.androideradev.www.nearme.R;
 import com.androideradev.www.nearme.adapter.PlaceReviewsAdapter;
-import com.androideradev.www.nearme.model.Place;
 import com.androideradev.www.nearme.model.PlaceReview;
 
 import java.util.ArrayList;
