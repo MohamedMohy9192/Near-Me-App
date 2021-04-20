@@ -9,14 +9,14 @@ android {
             storePassword 'mohamed2018'
         }
     }
-    compileSdkVersion 27
+    compileSdkVersion 30
     defaultConfig {
         buildConfigField("String", "CLIENT_ID", CLIENT_ID)
         buildConfigField("String", "CLIENT_SECRET", CLIENT_SECRET)
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
         applicationId "com.androideradev.www.nearme"
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
